@@ -8,14 +8,12 @@ import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.security.test.context.support.WithMockUser
 import org.springframework.test.web.servlet.MockMvc
-import pjatk.pro.event_organizer_app.catering.mapper.CateringItemMapper
 import pjatk.pro.event_organizer_app.location.mapper.LocationDescriptionItemMapper
 import pjatk.pro.event_organizer_app.location.model.LocationDescriptionItem
 import pjatk.pro.event_organizer_app.location.service.LocationDescriptionItemService
 import pjatk.pro.event_organizer_app.test_helper.TestSerializer
 import spock.lang.Specification
 
-import static org.mockito.ArgumentMatchers.eq
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
