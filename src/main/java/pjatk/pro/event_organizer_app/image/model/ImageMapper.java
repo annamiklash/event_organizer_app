@@ -1,0 +1,1 @@
+package pjatk.pro.event_organizer_app.image.model;

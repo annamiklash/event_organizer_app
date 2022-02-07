@@ -1,0 +1,71 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.4'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+apply plugin: 'groovy'
+
+group = 'pjatk.pro'
+version = '0.0.1-SNAPSHOT'
+project.sourceCompatibility = '11'
+project.targetCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+bootRun {
+    systemProperties = System.properties
+}
+
+repositories {
+    mavenCentral()
+}
+
+bootRun.dependsOn(test)
+
+dependencies {
+    implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.5.0'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-rest'
+    implementation 'junit:junit:4.12'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.20'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation group: 'com.google.guava', name: 'guava', version: '30.1-jre'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.5.0'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+    implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
+    implementation group: 'org.apache.commons', name: 'commons-csv', version: '1.9.0'
+
+    annotationProcessor 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok'
+
+    /* LOGGER */
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    implementation group: 'org.zalando', name: 'logbook-spring-boot-starter', version: '2.1.4'
+    implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '6.4'
+
+    /* TEST */
+    testImplementation "org.codehaus.groovy:groovy-all:2.5.8"
+    testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.1-M1-groovy-2.5'
+    testImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.1-M2-groovy-2.5'
+    testImplementation group: 'org.spockframework', name: 'spock-junit4', version: '2.0-M5-groovy-2.5'
+    testImplementation 'org.mockito:mockito-inline:2.13.0'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}

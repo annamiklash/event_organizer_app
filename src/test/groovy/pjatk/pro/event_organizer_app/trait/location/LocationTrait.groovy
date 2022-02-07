@@ -1,0 +1,173 @@
+package pjatk.pro.event_organizer_app.trait.location
+
+import com.google.common.collect.ImmutableList
+import com.google.common.collect.ImmutableSet
+import pjatk.pro.event_organizer_app.address.model.Address
+import pjatk.pro.event_organizer_app.address.model.dto.AddressDto
+import pjatk.pro.event_organizer_app.availability.location.model.LocationAvailability
+import pjatk.pro.event_organizer_app.business.model.Business
+import pjatk.pro.event_organizer_app.businesshours.DayEnum
+import pjatk.pro.event_organizer_app.businesshours.dto.BusinessHoursDto
+import pjatk.pro.event_organizer_app.businesshours.location.model.LocationBusinessHours
+import pjatk.pro.event_organizer_app.catering.model.Catering
+import pjatk.pro.event_organizer_app.image.model.LocationImage
+import pjatk.pro.event_organizer_app.location.model.Location
+import pjatk.pro.event_organizer_app.location.model.LocationDescriptionItem
+import pjatk.pro.event_organizer_app.location.model.dto.LocationDto
+
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.Month
+
+trait LocationTrait {
+
+    Location fakeLocation = Location.builder()
+            .id(1)
+            .name('Name')
+            .email('email@email.com')
+            .build()
+
+    Location fakeFullLocation = Location.builder()
+            .id(1L)
+            .caterings(new HashSet<Catering>())
+            .descriptions(new HashSet<LocationDescriptionItem>())
+            .availability(new HashSet<LocationAvailability>())
+            .locationBusinessHours(new HashSet<LocationBusinessHours>())
+            .locationAddress(Address.builder()
+                    .id(1)
+                    .country('Poland')
+                    .city('Warsaw')
+                    .streetName('Piękna')
+                    .streetNumber(1)
+                    .zipCode('01-157')
+                    .build())
+            .business(Business.builder()
+                    .id(1)
+                    .firstName('Name')
+                    .lastName('Name')
+                    .businessName('Name')
+                    .email('business@email.com')
+                    .verificationStatus('VERIFIED')
+                    .phoneNumber(new BigInteger("123123123"))
+                    .build())
+            .images(Set.of(LocationImage.builder()
+                    .id(1l)
+                    .fileName("fileName")
+                    .image("file.getBytes()".getBytes())
+                    .build()))
+            .build()
+
+    Location fakeFullLocationWithAvailability = Location.builder()
+            .id(1L)
+            .name('Name')
+            .description('Description')
+            .email('email@email')
+            .phoneNumber(new BigInteger(123456789))
+            .seatingCapacity(30)
+            .standingCapacity(100)
+            .dailyRentCost(new BigDecimal(100.0))
+            .sizeInSqMeters(300)
+            .createdAt(LocalDateTime.of(2020, Month.FEBRUARY, 1, 9, 0, 0))
+            .modifiedAt(LocalDateTime.of(2020, Month.FEBRUARY, 1, 9, 0, 0))
+            .deletedAt(null)
+            .caterings(new HashSet<Catering>())
+            .descriptions(Set.of(LocationDescriptionItem.builder()
+                    .id('Has WiFi')
+                    .description('Description')
+                    .build(),
+                    LocationDescriptionItem.builder()
+                            .id('Has Stage')
+                            .description('Description')
+                            .build()))
+            .locationBusinessHours(new HashSet<LocationBusinessHours>())
+            .locationAddress(Address.builder()
+                    .id(1)
+                    .country('Poland')
+                    .city('Warsaw')
+                    .streetName('Piękna')
+                    .streetNumber(1)
+                    .zipCode('01-157')
+                    .build())
+            .availability(Set.of(LocationAvailability.builder()
+                    .id(1l)
+                    .date(LocalDate.of(2022, Month.FEBRUARY, 1))
+                    .timeFrom(LocalDateTime.of(2022, Month.FEBRUARY, 1, 9, 0, 0))
+                    .timeTo(LocalDateTime.of(2022, Month.FEBRUARY, 1, 23, 0, 0))
+                    .status('AVAILABLE')
+                    .build()))
+            .business(Business.builder()
+                    .id(1)
+                    .firstName('Name')
+                    .lastName('Name')
+                    .businessName('Name')
+                    .verificationStatus('VERIFIED')
+                    .phoneNumber(new BigInteger("123123123"))
+                    .build())
+            .images(Set.of(LocationImage.builder()
+                    .id(1l)
+                    .fileName("fileName")
+                    .image("file.getBytes()".getBytes())
+                    .build()))
+            .build()
+
+    LocationDto fakeLocationDto = LocationDto.builder()
+            .id(1L)
+            .name("SAMPLE LOCATION NAME")
+            .rating(12.10D)
+            .email("test@email.com")
+            .phoneNumber('123123123')
+            .seatingCapacity(10)
+            .standingCapacity(20)
+            .description("SAMPLE DESCRIPTION")
+            .dailyRentCost("123")
+            .sizeInSqMeters(200)
+            .descriptions(ImmutableSet.of())
+            .address(AddressDto.builder()
+                    .id(1L)
+                    .country('Poland')
+                    .city('Warsaw')
+                    .streetName('Piękna')
+                    .streetNumber(1)
+                    .zipCode('01-157')
+                    .build())
+            .businessHours(ImmutableList.of())
+            .build()
+
+    Location fakeLocationToCreate = Location.builder()
+            .name("SAMPLE LOCATION NAME")
+            .email("test@email.com")
+            .phoneNumber(new BigInteger('123123123'))
+            .seatingCapacity(10)
+            .standingCapacity(20)
+            .description("SAMPLE DESCRIPTION")
+            .dailyRentCost(123.00)
+            .sizeInSqMeters(200)
+            .build()
+
+    LocationDto fakeLocationDtoCreate = LocationDto.builder()
+            .name("SAMPLE LOCATION NAME")
+            .email("test@email.com")
+            .phoneNumber('123123123')
+            .seatingCapacity(10)
+            .standingCapacity(20)
+            .description("SAMPLE DESCRIPTION")
+            .dailyRentCost("123")
+            .sizeInSqMeters(200)
+            .descriptions(Set.of('Outside Catering Available'))
+            .address(AddressDto.builder()
+                    .country('Poland')
+                    .city('Warsaw')
+                    .streetName('Piękna')
+                    .streetNumber(1)
+                    .zipCode('01-157')
+                    .build())
+            .businessHours(ImmutableList.of(
+                    BusinessHoursDto.builder()
+                            .day(DayEnum.MONDAY)
+                            .timeFrom('10:00:00')
+                            .timeTo('20:00:00')
+                            .build()))
+            .build()
+
+
+}
