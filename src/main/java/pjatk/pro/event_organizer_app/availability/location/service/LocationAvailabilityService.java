@@ -17,6 +17,7 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -39,15 +40,33 @@ public class LocationAvailabilityService {
 
         final List<LocationAvailability> result = new ArrayList<>();
 
-        for (AvailabilityDto availabilityDto : dtos) {
-            final LocationAvailability availability = resolveAvailabilitiesForDay(availabilityDto, location, deleteAll);
+        final Map<String, List<AvailabilityDto>> dateMap = dtos.stream()
+                .collect(Collectors.groupingBy(AvailabilityDto::getDate));
 
-            availability.setLocation(location);
-            availability.setStatus(AVAILABLE.name());
+        dateMap.keySet()
+                .forEach(date -> {
+                    final List<LocationAvailability> allByServiceIdAndDate =
+                            findAllByLocationIdAndDate(location.getId(), date)
+                                    .stream().filter(serviceAvailability -> "AVAILABLE".equals(serviceAvailability.getStatus()))
+                                    .collect(Collectors.toList());
 
-            save(availability);
-            result.add(availability);
-        }
+                    if (deleteAll) {
+                        allByServiceIdAndDate.forEach(locationAvailabilityRepository::delete);
+                    }
+
+                    dateMap.get(date).forEach(availabilityDto -> {
+                        final LocationAvailability availability =
+                                resolveAvailabilitiesForDay(availabilityDto, location, false);
+
+                        availability.setLocation(location);
+                        availability.setStatus(AVAILABLE.name());
+
+                        locationAvailabilityRepository.save(availability);
+                        result.add(availability);
+                    });
+
+                });
+
         return result;
     }
 

@@ -1,6 +1,5 @@
 package pjatk.pro.event_organizer_app.availability.location.service
 
-
 import pjatk.pro.event_organizer_app.availability.location.model.LocationAvailability
 import pjatk.pro.event_organizer_app.availability.location.repository.LocationAvailabilityRepository
 import pjatk.pro.event_organizer_app.availability.mapper.AvailabilityMapper
@@ -13,7 +12,6 @@ import pjatk.pro.event_organizer_app.trait.availability.LocationAvailabilityTrai
 import pjatk.pro.event_organizer_app.trait.location.LocationTrait
 import spock.lang.Specification
 import spock.lang.Subject
-import spock.lang.Unroll
 
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -168,49 +166,6 @@ class LocationAvailabilityServiceTest extends Specification
         locationAvailabilityRepository.getByDateAndTime(date, timeFrom, timeTo) >> { throw new NotFoundException('') }
     }
 
-    @Unroll
-    def "update positive for upperBordering=#upperBordering and lowerBordering=#lowerBordering scenario"() {
-        given:
-        def id = 1L
-        def availabilityDto = fakeAvailabilityDto
-
-        def dtos = [availabilityDto]
-        def location = fakeLocation
-        def locId = fakeLocation.getId()
-        def date = availabilityDto.getDate()
-        def locationAvailability = fakeLocationAvailability
-
-        def timeFrom = '2021-12-31 10:00:00'
-        def timeTo = '2021-12-31 23:00:00'
-
-        def target = [LocationAvailability.builder()
-                              .location(location)
-                              .id(locationAvailabilityId)
-                              .date(locationAvailability.date)
-                              .timeFrom(locationAvailability.timeFrom)
-                              .timeTo(locationAvailability.timeTo)
-                              .status('AVAILABLE')
-                              .build()]
-
-        when:
-        def result = locationAvailabilityService.update(dtos, id, true)
-
-        then:
-        1 * locationRepository.findById(id) >> Optional.of(location)
-        2 * locationAvailabilityRepository.find(locId, date) >> [locationAvailability]
-        1 * locationAvailabilityRepository.delete(locationAvailability)
-        1 * locationAvailabilityRepository.findByLocationIdAndTimeTo(locId, timeFrom) >> Optional.ofNullable(upperBordering)
-        1 * locationAvailabilityRepository.findByLocationIdAndTimeFrom(locId, timeTo) >> Optional.ofNullable(lowerBordering)
-
-        result == target
-
-        where:
-        upperBordering           | lowerBordering           | locationAvailabilityId
-        null                     | null                     | 0
-        fakeLocationAvailability | null                     | 1
-        null                     | fakeLocationAvailability | 1
-        fakeLocationAvailability | fakeLocationAvailability | 0
-    }
 
     def "delete positive test scenario"() {
         given:

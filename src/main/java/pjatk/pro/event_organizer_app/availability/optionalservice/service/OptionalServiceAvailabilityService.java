@@ -37,14 +37,6 @@ public class OptionalServiceAvailabilityService {
         final OptionalService optionalService = optionalServiceService.get(serviceId);
         final List<OptionalServiceAvailability> result = new ArrayList<>();
 
-//        final List<OptionalServiceAvailability> available = findAllByServiceIdAndDate(optionalService.getId(), dto.getDate()).stream()
-//                .filter(serviceAvailability -> "AVAILABLE".equals(serviceAvailability.getStatus()))
-//                .collect(Collectors.toList());
-//
-//        if (deleteAll) {
-//            available.forEach(optionalServiceAvailabilityRepository::delete);
-//        }
-
         final Map<String, List<AvailabilityDto>> dateMap = dtos.stream()
                 .collect(Collectors.groupingBy(AvailabilityDto::getDate));
 
