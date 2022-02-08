@@ -16,6 +16,7 @@ import pjatk.pro.event_organizer_app.optional_service.service.OptionalServiceSer
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -36,16 +37,41 @@ public class OptionalServiceAvailabilityService {
         final OptionalService optionalService = optionalServiceService.get(serviceId);
         final List<OptionalServiceAvailability> result = new ArrayList<>();
 
-        for (AvailabilityDto availabilityDto : dtos) {
-            final OptionalServiceAvailability availability =
-                    resolveAvailabilitiesForDay(availabilityDto, optionalService, deleteAll);
+//        final List<OptionalServiceAvailability> available = findAllByServiceIdAndDate(optionalService.getId(), dto.getDate()).stream()
+//                .filter(serviceAvailability -> "AVAILABLE".equals(serviceAvailability.getStatus()))
+//                .collect(Collectors.toList());
+//
+//        if (deleteAll) {
+//            available.forEach(optionalServiceAvailabilityRepository::delete);
+//        }
 
-            availability.setOptionalService(optionalService);
-            availability.setStatus(AVAILABLE.name());
+        final Map<String, List<AvailabilityDto>> dateMap = dtos.stream()
+                .collect(Collectors.groupingBy(AvailabilityDto::getDate));
 
-            optionalServiceAvailabilityRepository.save(availability);
-            result.add(availability);
-        }
+        dateMap.keySet()
+                .forEach(date -> {
+                    final List<OptionalServiceAvailability> allByServiceIdAndDate =
+                            findAllByServiceIdAndDate(optionalService.getId(), date)
+                                    .stream().filter(serviceAvailability -> "AVAILABLE".equals(serviceAvailability.getStatus()))
+                                    .collect(Collectors.toList());
+
+                    if (deleteAll) {
+                        allByServiceIdAndDate.forEach(optionalServiceAvailabilityRepository::delete);
+                    }
+
+                    dateMap.get(date).forEach(availabilityDto -> {
+                        final OptionalServiceAvailability availability =
+                                resolveAvailabilitiesForDay(availabilityDto, optionalService, false);
+
+                        availability.setOptionalService(optionalService);
+                        availability.setStatus(AVAILABLE.name());
+
+                        optionalServiceAvailabilityRepository.save(availability);
+                        result.add(availability);
+                    });
+
+                });
+
         return result;
     }
 
@@ -76,7 +102,7 @@ public class OptionalServiceAvailabilityService {
 
     }
 
-    public void deleteById(long id){
+    public void deleteById(long id) {
         optionalServiceAvailabilityRepository.deleteById(id);
         optionalServiceAvailabilityRepository.flush();
     }
