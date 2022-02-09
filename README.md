@@ -5,8 +5,8 @@
 
 ```java
     url: CHANGE_ME
-    username: CHANGE_ME
-    password: CHANGE_ME
+        username: CHANGE_ME
+        password: CHANGE_ME
 ```
 3. In the project root run the command
 ```bash
@@ -20,3 +20,15 @@ To disable running tests before the start of the application, comment out the fo
 ```java
 bootRun.dependsOn(test)
 ```
+
+### Setting up application email
+The credentials for the email are as follows:
+
+- Email: `testsocialeventorg@gmail.com`
+
+- Password: `PRO_password1!`
+
+It is also important to allows anauthorized application to use given email which is possible to change in the Gmail account settings as follows:
+![alt text](https://devanswers.co/wp-content/uploads/2017/02/gmail-allow-less-secure-apps.png)
+
+The email and password used for the application can be viewed and changed in the `application.yml` file located in the social_event_support_back folder in the resources directory (`src/main/resources`).
