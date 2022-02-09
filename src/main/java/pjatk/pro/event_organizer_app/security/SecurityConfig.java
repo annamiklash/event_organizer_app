@@ -24,8 +24,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 LOGOUT.value,
                 LOCATIONS.value,
                 LOCATIONS_REVIEW.value,
-                LOCATION_AVAILABILITY_1.value,
-                LOCATION_AVAILABILITY_2.value,
                 LOCATION_DESCRIPTIONS.value,
 
                 CATERINGS.value,
@@ -35,7 +33,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 CATERING_ITEM_TYPES.value,
 
                 SERVICES.value,
-                SERVICES_AVAILABILITY.value,
                 SERVICE_REVIEW.value,
                 RESET_PASSWORD.value,
                 RESET.value,
