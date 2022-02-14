@@ -4,9 +4,9 @@
 2. In the `application.yml` file change fields marked as CHANGE_ME for the appropriate values
 
 ```java
-    url: CHANGE_ME
-    username: CHANGE_ME
-    password: CHANGE_ME
+    url: CHANGEME
+    username: CHANGEME
+    password: CHANGEME
 ```
 3. In the project root run the command
 ```bash
