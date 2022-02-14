@@ -5,8 +5,8 @@
 
 ```java
     url: CHANGE_ME
-        username: CHANGE_ME
-        password: CHANGE_ME
+    username: CHANGE_ME
+    password: CHANGE_ME
 ```
 3. In the project root run the command
 ```bash
