@@ -174,7 +174,7 @@ class CustomerServiceTest extends Specification
                 customer.getFirstName() + " " +
                 customer.getLastName() + " " +
                 "with email" + " " + user.getEmail() +
-                "\n\n" + locationMessageDto.getContent() +  "\n\n" + "Sent via pro app"
+                "\n\n" + locationMessageDto.getContent() +  "\n\n" + "Sent via Event Organizer app"
 
         def inviteEmail = EmailUtil.buildEmail(content,
                 locationMessageDto.getReceiverEmail(), locationMessageDto.getSubject(), locationMessageDto.getReplyToEmail())
@@ -213,7 +213,7 @@ class CustomerServiceTest extends Specification
                 customer.getFirstName() + " " +
                 customer.getLastName() + " " +
                 "with email" + " " + user.getEmail() +
-                "\n\n" + cateringMessageDto.getContent() +  "\n\n" + "Sent via pro app"
+                "\n\n" + cateringMessageDto.getContent() +  "\n\n" + "Sent via Event Organizer app"
 
         def inviteEmail = EmailUtil.buildEmail(content,
                 cateringMessageDto.getReceiverEmail(), cateringMessageDto.getSubject(), cateringMessageDto.getReplyToEmail())
@@ -252,7 +252,7 @@ class CustomerServiceTest extends Specification
                 customer.getFirstName() + " " +
                 customer.getLastName() + " " +
                 "with email" + " " + user.getEmail() +
-                "\n\n" + serviceMessageDto.getContent() +  "\n\n" + "Sent via pro app"
+                "\n\n" + serviceMessageDto.getContent() +  "\n\n" + "Sent via Event Organizer app"
 
         def inviteEmail = EmailUtil.buildEmail(content,
                 serviceMessageDto.getReceiverEmail(), serviceMessageDto.getSubject(), serviceMessageDto.getReplyToEmail())

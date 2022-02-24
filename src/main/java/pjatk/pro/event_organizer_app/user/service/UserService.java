@@ -100,7 +100,7 @@ public class UserService {
 
         final String emailSubject = "Password Reset Request";
         final String content = "To reset your password, click the link below:\n" + appUrl
-                + "/reset/token/" + user.getResetPasswordToken() + "\n\nSent via pro app";
+                + "/reset/token/" + user.getResetPasswordToken() + "\n\nSent via Event Organizer app";
         final SimpleMailMessage passwordResetEmail = EmailUtil.buildEmail(content, email, emailSubject, null);
 
         log.info("EMAIL: " + passwordResetEmail.toString());

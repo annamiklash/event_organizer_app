@@ -147,7 +147,7 @@ public class CustomerService {
                 customer.getFirstName() + " " +
                 customer.getLastName() + " " +
                 "with email" + " " + user.getEmail() +
-                "\n\n" + messageDto.getContent() + "\n\nSent via pro app";
+                "\n\n" + messageDto.getContent() + "\n\nSent via Event Organizer app";
 
         final SimpleMailMessage inviteEmail = EmailUtil.buildEmail(content,
                 messageDto.getReceiverEmail(), messageDto.getSubject(), messageDto.getReplyToEmail());

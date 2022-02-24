@@ -45,8 +45,6 @@ public class ComposeInviteEmailUtil implements Serializable {
                 .concat(locationForEventDto.getLocation().getName())
                 .concat(" located at ")
                 .concat(getAddressString(locationForEventDto.getLocation().getAddress()))
-                .concat(" on ")
-                .concat(dto.getStartTime())
                 .concat(" from ")
                 .concat(locationForEventDto.getTimeFrom())
                 .concat(" until ")
@@ -87,7 +85,7 @@ public class ComposeInviteEmailUtil implements Serializable {
                 .concat(" or calling at ")
                 .concat(dto.getCustomer().getPhoneNumber())
                 .concat("\n\n\n")
-                .concat("Sent via pro app");
+                .concat("Sent via Event Organizer app");
 
         log.info("INVITE \n:" + content);
         return content;
